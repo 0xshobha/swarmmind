@@ -1,0 +1,23 @@
+[package]
+name = "swarmmind-agent"
+version = "0.1.0"
+edition = "2021"
+description = "SwarmMind agent binary — a leaderless AI agent economy node"
+
+[[bin]]
+name = "swarmmind-agent"
+path = "src/main.rs"
+
+[dependencies]
+vertex-core = { path = "../vertex-core" }
+agent-economy = { path = "../agent-economy" }
+tashi-vertex = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+clap = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+anyhow = { workspace = true }

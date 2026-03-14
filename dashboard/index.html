@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwarmMind — Decentralized Agent Economy Dashboard</title>
+    <meta name="description"
+        content="Real-time monitoring dashboard for SwarmMind: a leaderless AI agent economy built on Tashi Vertex BFT consensus.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background Particles -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <div class="brand-icon">🧠</div>
+            <div class="brand-text">
+                <span class="brand-name">SwarmMind</span>
+                <span class="brand-subtitle">Decentralized Agent Economy</span>
+            </div>
+        </div>
+        <div class="nav-status">
+            <div class="status-pill" id="consensus-status">
+                <span class="pulse"></span>
+                <span>Vertex Consensus</span>
+            </div>
+            <div class="status-pill" id="swarm-health">
+                <span class="pulse pulse-green"></span>
+                <span id="agent-count">0 Agents</span>
+            </div>
+            <div class="nav-clock" id="clock">00:00:00</div>
+        </div>
+    </nav>
+
+    <!-- Main Grid -->
+    <main class="dashboard-grid">
+        <!-- KPI Cards -->
+        <section class="kpi-row">
+            <div class="kpi-card" id="kpi-agents">
+                <div class="kpi-icon">🤖</div>
+                <div class="kpi-data">
+                    <div class="kpi-value" id="kpi-agents-val">0</div>
+                    <div class="kpi-label">Active Agents</div>
+                </div>
+                <div class="kpi-trend up" id="kpi-agents-trend">+0</div>
+            </div>
+            <div class="kpi-card" id="kpi-tasks">
+                <div class="kpi-icon">📋</div>
+                <div class="kpi-data">
+                    <div class="kpi-value" id="kpi-tasks-val">0</div>
+                    <div class="kpi-label">Tasks Processed</div>
+                </div>
+                <div class="kpi-trend up" id="kpi-tasks-trend">+0</div>
+            </div>
+            <div class="kpi-card" id="kpi-latency">
+                <div class="kpi-icon">⚡</div>
+                <div class="kpi-data">
+                    <div class="kpi-value" id="kpi-latency-val">0<span class="kpi-unit">ms</span></div>
+                    <div class="kpi-label">Consensus Latency</div>
+                </div>
+                <div class="kpi-trend down" id="kpi-latency-trend">-0ms</div>
+            </div>
+            <div class="kpi-card" id="kpi-auctions">
+                <div class="kpi-icon">🔨</div>
+                <div class="kpi-data">
+                    <div class="kpi-value" id="kpi-auctions-val">0</div>
+                    <div class="kpi-label">Auctions Won</div>
+                </div>
+                <div class="kpi-trend up" id="kpi-auctions-trend">+0</div>
+            </div>
+            <div class="kpi-card" id="kpi-reputation">
+                <div class="kpi-icon">⭐</div>
+                <div class="kpi-data">
+                    <div class="kpi-value" id="kpi-rep-val">100</div>
+                    <div class="kpi-label">Avg Reputation</div>
+                </div>
+                <div class="kpi-trend up" id="kpi-rep-trend">+0</div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <div class="content-row">
+            <!-- Network Topology -->
+            <section class="panel topology-panel">
+                <div class="panel-header">
+                    <h2>🌐 Swarm Topology</h2>
+                    <div class="header-badge">P2P Mesh</div>
+                </div>
+                <canvas id="topology-canvas"></canvas>
+            </section>
+
+            <!-- Agent Cards -->
+            <section class="panel agents-panel">
+                <div class="panel-header">
+                    <h2>🤖 Agents</h2>
+                    <div class="header-badge" id="agents-online">0 Online</div>
+                </div>
+                <div class="agents-list" id="agents-list">
+                    <!-- Dynamically populated -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Bottom Row -->
+        <div class="content-row bottom-row">
+            <!-- Task Pipeline -->
+            <section class="panel pipeline-panel">
+                <div class="panel-header">
+                    <h2>📋 Task Pipeline</h2>
+                    <div class="header-badge" id="pipeline-count">0 Active</div>
+                </div>
+                <div class="pipeline-stages">
+                    <div class="stage">
+                        <div class="stage-header">
+                            <span class="stage-name">🔨 Auction</span>
+                            <span class="stage-count" id="stage-auction">0</span>
+                        </div>
+                        <div class="stage-items" id="auction-items"></div>
+                    </div>
+                    <div class="stage-arrow">→</div>
+                    <div class="stage">
+                        <div class="stage-header">
+                            <span class="stage-name">⚙️ Executing</span>
+                            <span class="stage-count" id="stage-executing">0</span>
+                        </div>
+                        <div class="stage-items" id="executing-items"></div>
+                    </div>
+                    <div class="stage-arrow">→</div>
+                    <div class="stage">
+                        <div class="stage-header">
+                            <span class="stage-name">✅ Done</span>
+                            <span class="stage-count" id="stage-done">0</span>
+                        </div>
+                        <div class="stage-items" id="done-items"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Event Log -->
+            <section class="panel log-panel">
+                <div class="panel-header">
+                    <h2>📜 Consensus Event Log</h2>
+                    <button class="btn-clear" id="clear-log">Clear</button>
+                </div>
+                <div class="event-log" id="event-log">
+                    <!-- Dynamically populated -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <span>SwarmMind · Vertex Swarm Challenge 2026</span>
+        <span>Powered by <strong>Tashi Vertex</strong> BFT Consensus</span>
+        <span>Built by <strong>0xShobha</strong></span>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

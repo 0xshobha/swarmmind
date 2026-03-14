@@ -1,0 +1,77 @@
+    Checking vertex-core v0.1.0 (C:\Users\Asus\Downloads\0xshobha\swarmmind\crates\vertex-core)
+error[E0432]: unresolved import `tashi_vertex::KeySecret`
+ --> crates\vertex-core\src\identity.rs:7:5
+  |
+7 | use tashi_vertex::KeySecret;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^ no `KeySecret` in the root
+
+error[E0432]: unresolved imports `tashi_vertex::Context`, `tashi_vertex::Engine`, `tashi_vertex::KeySecret`, `tashi_vertex::Message`, `tashi_vertex::Options`, `tashi_vertex::Peers`, `tashi_vertex::Socket`, `tashi_vertex::Transaction`
+ --> crates\vertex-core\src\node.rs:8:5
+  |
+8 |     Context as VtxContext, Engine, KeySecret, Message, Options, Peers, Socket, Transaction,
+  |     ^^^^^^^^^^^^^^^^^^^^^  ^^^^^^  ^^^^^^^^^  ^^^^^^^  ^^^^^^^  ^^^^^  ^^^^^^  ^^^^^^^^^^^ no `Transaction` in the root
+  |     |                      |       |          |        |        |      |
+  |     |                      |       |          |        |        |      no `Socket` in the root
+  |     |                      |       |          |        |        no `Peers` in the root
+  |     |                      |       |          |        no `Options` in the root
+  |     |                      |       |          no `Message` in the root
+  |     |                      |       no `KeySecret` in the root
+  |     |                      no `Engine` in the root
+  |     no `Context` in the root
+  |
+  = help: consider importing one of these items instead:
+          std::task::Context
+          anyhow::Context
+  = help: consider importing this variant instead:
+          tokio::net::windows::named_pipe::PipeMode::Message
+
+error: cannot find macro `warn` in this scope
+   --> crates\vertex-core\src\state.rs:177:17
+    |
+177 |                 warn!(task = %task_id, reason = %reason, "❌ Task failed");
+    |                 ^^^^
+    |
+    = note: `warn` is in scope, but it is an attribute: `#[warn]`
+help: consider importing this macro
+    |
+  6 + use tracing::warn;
+    |
+
+warning: unused import: `Context`
+ --> crates\vertex-core\src\node.rs:6:14
+  |
+6 | use anyhow::{Context, Result};
+  |              ^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `AgentProfile`
+  --> crates\vertex-core\src\state.rs:11:49
+   |
+11 | use crate::identity::{AgentCapability, AgentId, AgentProfile};
+   |                                                 ^^^^^^^^^^^^
+
+warning: unused import: `AgentStatus`
+  --> crates\vertex-core\src\state.rs:12:62
+   |
+12 | use crate::protocol::{PeerStatus, MessageType, SwarmMessage, AgentStatus};
+   |                                                              ^^^^^^^^^^^
+
+error[E0282]: type annotations needed
+  --> crates\vertex-core\src\node.rs:65:22
+   |
+65 |           let socket = Socket::bind(&ctx, &config.bind_addr)
+   |  ______________________^
+66 | |             .await
+   | |__________________^ cannot infer type
+
+error[E0282]: type annotations needed
+   --> crates\vertex-core\src\node.rs:102:64
+    |
+102 | ...                   match SwarmMessage::from_bytes(transaction.as_ref()) {
+    |                                                      ^^^^^^^^^^^ cannot infer type
+
+Some errors have detailed explanations: E0282, E0432.
+For more information about an error, try `rustc --explain E0282`.
+warning: `vertex-core` (lib) generated 3 warnings
+error: could not compile `vertex-core` (lib) due to 5 previous errors; 3 warnings emitted

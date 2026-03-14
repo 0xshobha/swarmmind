@@ -1,0 +1,17 @@
+[package]
+name = "agent-economy"
+version = "0.1.0"
+edition = "2021"
+description = "Leaderless AI agent economy protocol for SwarmMind"
+
+[dependencies]
+vertex-core = { path = "../vertex-core" }
+tashi-vertex = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }

@@ -1,0 +1,16 @@
+[package]
+name = "vertex-core"
+version = "0.1.0"
+edition = "2021"
+description = "Core P2P coordination layer built on Tashi Vertex for SwarmMind"
+
+[dependencies]
+tashi-vertex = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }

@@ -1,0 +1,6 @@
+/target
+*.swp
+*.swo
+.env
+*.log
+swarm_config.json
